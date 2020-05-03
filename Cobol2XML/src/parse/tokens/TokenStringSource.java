@@ -85,7 +85,7 @@ protected void loadCache() {
 	}	
 }
 /**
- * Shows the example in the class comment.
+ * Shows the example in the class commentLine.
  *
  * @param args ignored
  */

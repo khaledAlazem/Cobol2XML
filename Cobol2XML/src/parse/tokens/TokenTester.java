@@ -31,7 +31,7 @@ public TokenTester(Parser p) {
 	super(p);
 }
 /**
- * assembly method comment.
+ * assembly method commentLine.
  */
 protected Assembly assembly(String s) {
 	return new TokenAssembly(s);

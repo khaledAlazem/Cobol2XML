@@ -60,6 +60,7 @@ public class TokenAssembly extends Assembly{
 			if (i > 0) {
 				buf.append(delimiter);
 			}	
+			System.out.println("token at "+" " +tokenString.tokenAt(i));
 			buf.append(tokenString.tokenAt(i));
 		}
 		return buf.toString();

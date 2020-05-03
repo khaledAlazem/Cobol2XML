@@ -31,11 +31,10 @@ public class DateAssembler extends Assembler {
  * @param   Assembly   the assembly to work on
  */
 public void workOn(Assembly a) {
-	Cobol c = new Cobol();
-	Token t = (Token) a.pop();
+ 	Cobol c = new Cobol();
+ 	Token t = (Token) a.pop();
 	String tokenString = t.sval().trim();
-	
-	// deconstrct toak string into month and year components
+ 	// deconstruct toak string into month and year components
 	String monthString = "" + tokenString.charAt(0) + tokenString.charAt(1) + tokenString.charAt(2);
 	c.setMonthDateWritten(monthString);
 	

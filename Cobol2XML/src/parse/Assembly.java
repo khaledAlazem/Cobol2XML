@@ -31,7 +31,8 @@ public abstract class Assembly implements Enumeration<Object>, PubliclyCloneable
 	 */
 	public Object clone() {
 		try {
-			Assembly a = (Assembly) super.clone();
+
+ 			Assembly a = (Assembly) super.clone();
 			a.stack = (Stack<Object>) stack.clone();
 			if (target != null) {
 				a.target = (PubliclyCloneable) target.clone();
@@ -98,6 +99,18 @@ public abstract class Assembly implements Enumeration<Object>, PubliclyCloneable
 	public Object getTarget() {
 		return target;
 	}
+	
+	/**
+	 * Sets the target for this assembly. Targets must implement 
+	 * <code>clone()</code> as a public method.
+	 * 
+	 * @param   target   a publicly cloneable object
+	 */
+	public void setTarget(PubliclyCloneable target) {
+		this.target = target;
+	}
+	
+	
 	/**
 	 * Returns true if this assembly has unconsumed elements.
 	 *
@@ -149,15 +162,7 @@ public abstract class Assembly implements Enumeration<Object>, PubliclyCloneable
 	 *           consumed
 	 */
 	public abstract String remainder(String delimiter);
-	/**
-	 * Sets the target for this assembly. Targets must implement 
-	 * <code>clone()</code> as a public method.
-	 * 
-	 * @param   target   a publicly cloneable object
-	 */
-	public void setTarget(PubliclyCloneable target) {
-		this.target = target;
-	}
+
 	/**
 	 * Returns true if this assembly's stack is empty.
 	 *

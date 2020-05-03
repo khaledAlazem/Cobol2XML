@@ -24,14 +24,29 @@ package cobol;
 import utensil.*;
 
 public class Cobol implements PubliclyCloneable {
-	protected String commentLine;
-	protected String program_id;
+ 	protected String program_id;
 	protected String sectionName;
 	protected String divisionName;
 	protected int dayDateWritten = 0;
 	protected String monthDateWritten;
 	protected int yearDateWritten = 0;
+	//Constant Value
+	protected String constantName;
+	protected double constantValue;
+	protected int lineNumber = 0 ;
+	//Remarks
+	protected String remarks;
+	//Display 
+	protected String display;
+	//Accept 
+	protected String accept;
+	//Perform
+	protected String perform;
+	//Commnet Line
+	protected String commentLine;
+	
 
+	
 	
 	/**
 	 * Return a copy of this object.
@@ -40,7 +55,7 @@ public class Cobol implements PubliclyCloneable {
 	 */
 	public Object clone() {
 		try {
-			return super.clone();
+ 			return super.clone();
 		} catch (CloneNotSupportedException e) {
 			// this shouldn't happen, since we are Cloneable
 			throw new InternalError();
@@ -59,7 +74,7 @@ public class Cobol implements PubliclyCloneable {
 	 *          <code>false</code> otherwise.
 	 */
 	public static boolean equal(Object o1, Object o2) {
-		if (o1 == null || o2 == null) {
+ 		if (o1 == null || o2 == null) {
 			return o1 == null && o2 == null;
 		}
 		return o1.equals(o2);
@@ -76,7 +91,7 @@ public class Cobol implements PubliclyCloneable {
 	 *          <code>false</code> otherwise.
 	 */
 	public boolean equals(Object o) {
-		if (!(o instanceof Cobol)) {
+  		if (!(o instanceof Cobol)) {
 			return false;
 		}
 		Cobol c = (Cobol) o;
@@ -94,14 +109,82 @@ public class Cobol implements PubliclyCloneable {
 		return true;
 	}
 
+	
+	
+	public String getPerform() {
+		return perform;
+	}
+	
+	public void setPerform(String perform) {
+		this.perform = perform;
+	}
+	
+	public String getAccept() {
+		return accept;
+	}
+	
+	public void setAccept(String accept) {
+		this.accept = accept;
+	}
+	
+	
+	public String getDisplay() {
+		return display;
+	}
+	
+	
+	public void setDisplay(String display) {
+		this.display = display;
+	}
+	
+	public String getRemarks() {
+		return remarks;
+	}
+	
+	
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	
+	
+	public String getProgram_id() {
+		return program_id;
+	}
+	
+	public void setProgram_id(String program_id) {
+		this.program_id = program_id;
+	}
+	
+	public String getConstantName() {
+		return constantName;
+	}
+	
+	public void setConstantName(String constantName) {
+		this.constantName = constantName;
+	}
+	
+	public double getConstantValue() {
+		return constantValue;
+	}
+	
+	public void setConstantValue(double constantValue) {
+		this.constantValue = constantValue;
+	}
+	
+	public int getLineNumber() {
+		return lineNumber;
+	}
+	
+	public void setLineNumber(int lineNumber) {
+		this.lineNumber = lineNumber;
+	}
 	/**
 	 * Return line of commented text from the COBOL program.
 	 *
 	 * @return line of commented text from the COBOL program
 	 */
 	public String getCommentLine() {
-		//System.out.println("getComment()");
-		return commentLine;
+ 		return commentLine;
 	}
 	
 
@@ -111,7 +194,7 @@ public class Cobol implements PubliclyCloneable {
 	 * @return the name of this COBOL program
 	 */
 	public String getProgram_ID() {
-		return program_id;
+ 		return program_id;
 	}
 
 	/**
@@ -166,8 +249,7 @@ public class Cobol implements PubliclyCloneable {
 	 * @return line of commented text from the COBOL program
 	 */
 	public void setCommentLine(String commentLine) {
-		//System.out.println("setComment(): " + commentLine);
-		this.commentLine = commentLine;
+ 		this.commentLine = commentLine;
 	}
 
 
@@ -178,7 +260,7 @@ public class Cobol implements PubliclyCloneable {
 	 * @param   String   the name
 	 */
 	public void setProgram_ID(String program_idString) {
-		this.program_id = program_idString;
+ 		this.program_id = program_idString;
 	}
 
 	/**
@@ -224,7 +306,7 @@ public class Cobol implements PubliclyCloneable {
 	 * @param  String divisionName
 	 */
 	public void setDivisionName(String divisionName) {
-		this.divisionName = divisionName;
+  		this.divisionName = divisionName;
 	}
 
 	/**

@@ -38,6 +38,7 @@ public class Tokenizer {
 	 */
 	protected TokenizerState[] characterState = 
 		new TokenizerState[256];
+	
 	/*
 	 * The default states that actually consume text and 
 	 * produce a token
@@ -49,9 +50,10 @@ public class Tokenizer {
 	protected WhitespaceState whitespaceState = 
 		new WhitespaceState();
 	protected WordState wordState = new WordState();
+	
 /**
  * Constructs a tokenizer with a default state table (as 
- * described in the class comment). 
+ * described in the class commentLine). 
  *
  * @return   a tokenizer
  */
@@ -70,6 +72,7 @@ public Tokenizer() {
 	setCharacterState( '\'', '\'', quoteState());
 	setCharacterState( '/',   '/', slashState());
 }
+
 /**
  * Constructs a tokenizer to read from the supplied string.
  *
@@ -77,7 +80,7 @@ public Tokenizer() {
  */
 public Tokenizer(String s) {
 	this();
-	setString(s);
+ 	setString(s);
 }
 /**
  * Return the reader this tokenizer will read from.
@@ -96,16 +99,16 @@ public PushbackReader getReader() {
  */
 public Token nextToken() throws IOException { 
 	int c = reader.read();
-	
-	/* There was a defect here, that resulted from the fact 
+  	/* There was a defect here, that resulted from the fact 
 	 * that unreading a -1 results in the next read having a 
 	 * value of (int)(char)-1, which is 65535. This may be
 	 * a defect in PushbackReader. */
 	 
 	if (c >= 0 && c < characterState.length) {
-		return characterState[c].nextToken(reader, c, this);
+ 		return characterState[c].nextToken(reader, c, this);
+  		   
 	}
-	return Token.EOF;
+ 	return Token.EOF;
 }
 /**
  * Return the state this tokenizer uses to build numbers.

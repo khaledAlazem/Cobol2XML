@@ -46,6 +46,8 @@ main-logic.
     display "Value: " no
     accept entry_char
 
+	perform display 'IN A-PARA' 
+	
     perform base-to-decimal thru base-to-decimal-ex
 
     display "Decimal  value: " entry_char
@@ -94,7 +96,7 @@ decimal-to-base.
 decimal-to-base-ex.
 
 ***---
-***---  convert from base to dicimal system
+***---  convert from base to dicimal system 
 ***---
 base-to-decimal.
 

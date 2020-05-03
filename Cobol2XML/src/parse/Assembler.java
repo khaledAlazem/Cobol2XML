@@ -22,8 +22,8 @@ public abstract class Assembler {
 	 * 
 	 */
 	public static Vector<Object> elementsAbove(Assembly a, Object fence) {
-		Vector<Object> items = new Vector<Object>();
-		 
+ 		Vector<Object> items = new Vector<Object>();
+
 		while (!a.stackIsEmpty()) {
 			Object top = a.pop();
 			if (top.equals(fence)) {

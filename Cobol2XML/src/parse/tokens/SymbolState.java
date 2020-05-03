@@ -27,7 +27,7 @@ public class SymbolState extends TokenizerState {
 /**
  * Constructs a symbol state with a default idea of what 
  * multi-character symbols to accept (as described in the 
- * class comment).
+ * class commentLine).
  *
  * @return   a state for recognizing a symbol
  */

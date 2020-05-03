@@ -66,7 +66,7 @@ public double calculateYforGivenX(double x) {
 	return (x - xFrom) / (xTo - xFrom) * (yTo - yFrom) + yFrom;
 }
 /**
- * Show the example in the class comment.
+ * Show the example in the class commentLine.
  * 
  * @param  args  ignored.
  */

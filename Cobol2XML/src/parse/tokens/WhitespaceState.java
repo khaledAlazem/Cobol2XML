@@ -42,19 +42,20 @@ public WhitespaceState() {
 public Token nextToken(
 	PushbackReader r, int aWhitespaceChar, Tokenizer t) 
 	throws IOException {
-		
-	int c;
+	   Token token;
+ 	int c;
 	do {
 		c = r.read();
-	} while (
+ 	} while (
 		c >= 0 && 
 		c < whitespaceChar.length && 
 		whitespaceChar[c]);
-	
+ 
 	if (c >= 0) {
-		r.unread(c);
+ 		r.unread(c);
 	}
-	return t.nextToken();
+	 
+ 	return  t.nextToken(); 
 }
 /**
  * Establish the given characters as whitespace to ignore.

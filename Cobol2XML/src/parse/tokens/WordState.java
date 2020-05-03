@@ -28,7 +28,7 @@ public class WordState extends TokenizerState {
 /**
  * Constructs a word state with a default idea of what 
  * characters are admissible inside a word (as described in 
- * the class comment). 
+ * the class commentLine). 
  *
  * @return   a state for recognizing a word
  */

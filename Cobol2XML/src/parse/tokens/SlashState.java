@@ -30,11 +30,11 @@ public class SlashState extends TokenizerState {
 	protected SlashSlashState slashSlashState = 
 		new SlashSlashState();
 /**
- * Either delegate to a comment-handling state, or return a 
+ * Either delegate to a commentLine-handling state, or return a 
  * token with just a slash in it.
  *
  * @return   either just a slash token, or the results of 
- *           delegating to a comment-handling state
+ *           delegating to a commentLine-handling state
  */
 public Token nextToken(
 	PushbackReader r, int theSlash, Tokenizer t)

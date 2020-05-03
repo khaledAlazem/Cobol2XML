@@ -21,6 +21,7 @@
 package cobol;
 
 import parse.Alternation;
+import parse.Assembler;
 import parse.Repetition;
 import parse.Empty;
 import parse.Parser;
@@ -28,9 +29,12 @@ import parse.Sequence;
 import parse.tokens.CaselessLiteral;
 import parse.tokens.Literal;
 import parse.tokens.Num;
+import parse.tokens.QuotedString;
 import parse.tokens.Symbol;
 import parse.tokens.Tokenizer;
+import parse.tokens.WhitespaceState;
 import parse.tokens.Word;
+import parse.tokens.WordState;
 
 public class CobolParser {
 	/**
@@ -57,9 +61,150 @@ public class CobolParser {
 		
 		a.add( DateWritten() );
 		
+		a.add(ConstantValue());
+		
+		a.add(Remarks());
+		
+		a.add(Display());
+		
+		a.add(Accept());
+		
+		a.add(Perform());
+		
+		a.add( Divide());
+		
+		a.add(Remainder());
+		
+		a.add(CommnetLine());
+		
 		a.add(new Empty());
+		
 		return a;
 	}
+	
+	
+	
+	protected Parser CommnetLine() {
+		Sequence s = new Sequence ();
+		s.add(new Symbol("*"));
+		s.add(new Symbol("*"));
+		s.add(new Symbol("*"));
+		s.add(new Symbol("-"));
+		s.add(new Symbol("-"));
+		s.add(new Symbol("-"));
+		s.add(new Word().setAssembler(new CommentLineAssembler()) );		
+		
+		return s;
+	}
+	protected Parser Remainder() {
+		Sequence s = new Sequence();
+   		s.add(new CaselessLiteral("remainder"));
+   		s.add(new Word().setAssembler(new RemainderAssembler()));
+		s.add(new Repetition(new Word()));
+
+		return s ; 
+	}
+
+	
+	protected Parser Divide() {
+		Sequence s = new Sequence();
+		Sequence e = new Sequence();
+   		s.add(new CaselessLiteral("divide"));
+//   		s.add(new CaselessLiteral("into"));
+ 
+		s.add(new Repetition(new Word()));
+   		s.add(new Word().setAssembler(new DivideAssembler()));
+//   		s.add(new Word());
+// 		s.add(new Word());
+
+
+//		s.add(new Word()); //represents  word "giving"
+//		s.add(new Word()); //represents item in which results of division will be stored
+//		s.add(new Word()); //represents item in which results of division will be stored
+//		s.add(new Symbol((char)10)); //move to new line
+//		s.add(new CaselessLiteral("remainder")); //represents  word "remainder"
+//		s.add(new Symbol(' ').discard()); //represents item in which results of division will be stored
+//		s.add(new Word()); //represents  word "giving"
+		
+//  		a.add(s);
+
+ 		return s;
+	}
+	/*
+	 * Return a parser that will recognise the grammar:
+	 * 
+	 *   <Perform> perform 
+	 *
+	 */
+	protected Parser Perform() {
+		Sequence s = new Sequence();
+//		s.add(new Repetition(new Word()));
+		s.add(new CaselessLiteral("perform"));
+//		s.add(new Repetition(new Word()));
+		s.setAssembler(new PerformAssembler());
+//		s.add(new Word().setAssembler(new PerformAssembler()));
+		return s; 
+	}
+	
+	/*
+	 * Return a parser that will recognise the grammar:
+	 * 
+	 *   <Accept> accept 
+	 *
+	 */
+	protected Parser Accept() {
+		Sequence s = new Sequence();
+		s.add(new CaselessLiteral("accept"));
+		s.add(new Word().setAssembler(new AcceptAssembler()));
+		return s; 
+	}
+	
+	/*
+	 * Return a parser that will recognise the grammar:
+	 * 
+	 *   <Display> display 
+	 *
+	 */
+	protected Parser Display() {
+		Sequence s = new Sequence();
+		s.add(new CaselessLiteral("display"));
+		s.add(new QuotedString());
+		s.setAssembler(new DisplayAssembler());
+		return s; 
+
+	}
+	
+	/**
+	 * Come back to this later
+	 * @return
+	 */
+	protected Parser Remarks() {
+		Sequence s = new Sequence();
+		System.out.println(s);
+		s.add(new CaselessLiteral("remarks"));
+		s.add(new Symbol('.').discard());
+		s.add(new Word());
+		s.add(new Word());
+		s.setAssembler(new RemarksAssembler());
+		return s; 
+	}
+	
+	
+	
+	/** Return a parser that will recognizethe grammar:* *   
+	 *  <line number> <contstant name> "value" <constant value>.
+	 *  **/
+	protected Parser ConstantValue() {
+		Sequence s = new Sequence();
+		s.add(new Num() );
+		s.add(new Word() );
+		s.add(new CaselessLiteral("value") );
+		s.add(new Num() );
+		s.setAssembler(new ConstantValueAssembler());
+		return s;
+	}
+	
+	
 	
 	/*
 	 * Return a parser that will recognize the grammar:
