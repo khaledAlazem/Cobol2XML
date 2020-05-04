@@ -88,36 +88,36 @@ public class Cobol2XML {
 			//						break;
 			//				}
 			//			}
-			if(!s.trim().contains(".") && !s.trim().contains("***") && !s.isEmpty() ) {
-
-				while((newLine = r.readLine()) != null) {
-					System.out.println("new Function");
-					System.out.println("from inner loop");
-					s= newLine;
-					functions.add(s);
-					System.out.println(s);
-					if(newLine.contains(".")) {
-						if(!functions.isEmpty()) {
-							for(String function : functions) {
-								t.setString(function);
-								Assembly in = new TokenAssembly(t);
-								Assembly out = p.bestMatch(in);
-								Cobol c = new Cobol();
-								c = (Cobol) out.getTarget();
-								if(c != null)
-									xmlp.addElements(c);
-							}
-						}
-						
-						if(!functions.isEmpty())
-							functions=new ArrayList<String>();
-						
-						s= " ";
-						break;
-					}
-				}
-
-			}
+//			if(!s.trim().contains(".") && !s.trim().contains("***") && !s.isEmpty() ) {
+//
+//				while((newLine = r.readLine()) != null) {
+//					System.out.println("new Function");
+//					System.out.println("from inner loop");
+//					s= newLine;
+//					functions.add(s);
+//					System.out.println(s);
+//					if(newLine.contains(".")) {
+//						if(!functions.isEmpty()) {
+//							for(String function : functions) {
+//								t.setString(function);
+//								Assembly in = new TokenAssembly(t);
+//								Assembly out = p.bestMatch(in);
+//								Cobol c = new Cobol();
+//								c = (Cobol) out.getTarget();
+//								if(c != null)
+//									xmlp.addElements(c);
+//							}
+//						}
+//						
+//						if(!functions.isEmpty())
+//							functions=new ArrayList<String>();
+//						
+//						s= " ";
+//						break;
+//					}
+//				}
+//
+//			}
 			// 			
 			if(s !=" ") {
 				t.setString(s);

@@ -10,7 +10,9 @@ public class RemarksAssembler extends Assembler {
 	public void workOn(Assembly a) {
 		Cobol c = new Cobol();
 		Token t = (Token) a.pop();
-		t = (Token) a.pop();
+//		c.setRemarks(t.sval());
+ 		System.out.println("from remarks "+" "+a.elementsConsumed());
+//		t = (Token) a.pop();
  		a.setTarget(c);
 	}
 

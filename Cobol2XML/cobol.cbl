@@ -20,7 +20,7 @@ working-storage section.
 01  entry_char   redefines entry_number pic x(16).
 
 01  current_base                        pic 9(2).
-    88  base_2                          value 2.
+    88  base_2                          value 2998e8.
     88  base_8                          value 8.
     88  base_10                         value 10.
     88  base_16                         value 16.

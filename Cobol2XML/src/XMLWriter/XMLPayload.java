@@ -90,7 +90,7 @@
 
 		 }
 		 /*
-		  * Add accept element
+		  * Add perform element
 		  */
 		 String perform = c.getPerform();
 		 if(perform != null){
@@ -115,6 +115,23 @@
 			 this.addDisplay(display);
 		 }else {
 		 }
+		 
+		 /* 
+		  * Add display element
+		  */
+		 String remarks = c.getRemarks();
+		 if(display != null ) {
+			String perform1 = c.getPerform();
+			if(perform1 != null) {
+				System.out.println("perform is not null");
+			}else {
+				System.out.println("perform is null");
+
+			}
+			 this.addRemarks(remarks);
+		 }else {
+		 }
+
 
 
 		 /*
@@ -254,7 +271,11 @@
 		 rootElement.appendChild(cobolName);
 	 }
 
-
+	 void addRemarks(String remarks) {
+		 Element cobolName = doc.createElement("Remarks");
+		 cobolName.appendChild(doc.createTextNode(remarks));
+		 rootElement.appendChild(cobolName); 
+	 }
 
 
 	 void addDisplay(String display) {

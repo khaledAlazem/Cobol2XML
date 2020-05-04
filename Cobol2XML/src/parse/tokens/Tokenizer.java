@@ -98,7 +98,7 @@ public PushbackReader getReader() {
  * @exception   IOException   if there is any problem reading
  */
 public Token nextToken() throws IOException { 
-	int c = reader.read();
+ 	int c = reader.read();
   	/* There was a defect here, that resulted from the fact 
 	 * that unreading a -1 results in the next read having a 
 	 * value of (int)(char)-1, which is 65535. This may be
@@ -110,6 +110,9 @@ public Token nextToken() throws IOException {
 	}
  	return Token.EOF;
 }
+
+
+
 /**
  * Return the state this tokenizer uses to build numbers.
  *
@@ -156,6 +159,7 @@ public void setCharacterState(
 public void setReader(PushbackReader r) {
 	this.reader = r;
 }
+
 /**
  * Set the string to read from.
  * 
@@ -164,6 +168,7 @@ public void setReader(PushbackReader r) {
 public void setString(String s) {
 	setString(s, DEFAULT_SYMBOL_MAX);
 }
+
 /**
  * Set the string to read from.
  * 
@@ -216,4 +221,5 @@ public WhitespaceState whitespaceState() {
 public WordState wordState() {
 	return wordState;
 }
+
 }

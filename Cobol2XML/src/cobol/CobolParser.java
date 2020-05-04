@@ -201,7 +201,6 @@ public class CobolParser {
 		s.add(new QuotedString());
 		s.setAssembler(new DisplayAssembler());
 		return s; 
-
 	}
 	
 	/**
@@ -210,12 +209,10 @@ public class CobolParser {
 	 */
 	protected Parser Remarks() {
 		Sequence s = new Sequence();
-		System.out.println(s);
 		s.add(new CaselessLiteral("remarks"));
+		s.add(new Repetition(new Word().setAssembler(new RemarksAssembler())));
 		s.add(new Symbol('.').discard());
-		s.add(new Word());
-		s.add(new Word());
-		s.setAssembler(new RemarksAssembler());
+//		s.setAssembler(new RemarksAssembler());
 		return s; 
 	}
 	
