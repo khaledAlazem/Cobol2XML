@@ -77,12 +77,41 @@ public class CobolParser {
 		
 		a.add(CommnetLine());
 		
+		a.add(Variable());
+		
+		a.add(Function());
+ 
 		a.add(new Empty());
 		
 		return a;
 	}
 	
+
 	
+	protected Parser Function() {
+//		System.out.println("from parser function");
+		Sequence s = new Sequence ();
+		s.add(new CaselessLiteral("decimal-to-base")); 
+//		s.add(new Repetition(new Word()));
+//		s.add(new Word());
+//		s.add(new Symbol(".").discard());
+
+		
+//		s.add(new Symbol("-"));
+//		s.add(new Word());
+		
+		s.setAssembler(new FunctionAssembler());
+		
+		return s;
+	}
+	protected Parser Variable() {
+		Sequence s = new Sequence ();
+		s.add(new Num());
+		s.add(new Word());
+		s.add(new CaselessLiteral("pic")); 
+ 		s.setAssembler(new VariableAssembler());
+		return s;
+	}
 	
 	protected Parser CommnetLine() {
 		Sequence s = new Sequence ();
@@ -96,12 +125,13 @@ public class CobolParser {
 		
 		return s;
 	}
+	
+	
 	protected Parser Remainder() {
 		Sequence s = new Sequence();
    		s.add(new CaselessLiteral("remainder"));
    		s.add(new Word().setAssembler(new RemainderAssembler()));
 		s.add(new Repetition(new Word()));
-
 		return s ; 
 	}
 

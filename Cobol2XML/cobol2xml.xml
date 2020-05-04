@@ -7,6 +7,31 @@
     <year-date-written>1995</year-date-written>
     <division>data</division>
     <section>working-storage</section>
+    <Variable>
+        <Variable Name="ind"/>
+        <ind Identifier="77"/>
+        <ind pictureClause="pic"/>
+    </Variable>
+    <Variable>
+        <Variable Name="rest_divide"/>
+        <rest_divide Identifier="77"/>
+        <rest_divide pictureClause="pic"/>
+    </Variable>
+    <Variable>
+        <Variable Name="w_number"/>
+        <w_number Identifier="1"/>
+        <w_number pictureClause="pic"/>
+    </Variable>
+    <Variable>
+        <Variable Name="entry_number"/>
+        <entry_number Identifier="1"/>
+        <entry_number pictureClause="pic"/>
+    </Variable>
+    <Variable>
+        <Variable Name="current_base"/>
+        <current_base Identifier="1"/>
+        <current_base pictureClause="pic"/>
+    </Variable>
     <Constant>
         <Constant Name="base_2"/>
         <base_2 Line_Number="88"/>
@@ -27,8 +52,29 @@
         <base_16 Line_Number="88"/>
         <base_16 Value="16.0"/>
     </Constant>
+    <Variable>
+        <Variable Name="hex_value"/>
+        <hex_value Identifier="5"/>
+        <hex_value pictureClause="pic"/>
+    </Variable>
+    <Variable>
+        <Variable Name="dec_value"/>
+        <dec_value Identifier="5"/>
+        <dec_value pictureClause="pic"/>
+    </Variable>
     <division>procedure</division>
+    <Display>"Base:  "no</Display>
+    <Accept>current_base convert</Accept>
+    <Display>"Value: "no</Display>
+    <Perform>perform display 'IN A-PARA'</Perform>
+    <Perform>perform base-to-decimal thru base-to-decimal-ex</Perform>
+    <Display>"Decimal  value: "entry_char</Display>
+    <Perform>perform decimal-to-base thru decimal-to-base-ex</Perform>
+    <Display>"Base: "current_base " value: " entry_char</Display>
+    <Accept>omitted </Accept>
     <commentLine>convert from decimal to base system</commentLine>
+    <Perform>perform until w_number &lt; current_base</Perform>
     <commentLine>convert from base to dicimal system</commentLine>
     <commentLine>allineamento a destra della variabile entry_char ( ver 2.3 0.1 o sup )</commentLine>
+    <Perform>perform test after varying ind from 1.0 by 1.0 until ind = 16.0</Perform>
 </cobol>

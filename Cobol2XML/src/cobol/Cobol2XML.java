@@ -23,6 +23,8 @@ package cobol;
 
 import XMLWriter.*;
 import java.io.*;
+import java.util.ArrayList;
+
 import parse.*;
 import parse.tokens.*;
 
@@ -46,7 +48,7 @@ public class Cobol2XML {
 	public static void main(String[] args) throws Exception {
 		System.out.println("Cobol2XML V0.1.0");
 		XMLPayload xmlp = new XMLPayload();
-
+		ArrayList<String> functions= new ArrayList<String>();
 		/* The first command line paprameter is used to get the cobol source file namee
 		 * In case you are not sure if you are pointing toward the right file, print out the filename
 		 * like this...
@@ -68,33 +70,67 @@ public class Cobol2XML {
 		while (true) {
 			// throws IOException
 			String s = r.readLine();
- 			if (s == null) {
+			if (s == null) {
 				break;
 			}
- 			
- 			/**
- 			 * if read line is not a comment nor a closing element , then carry on reading following lines
- 			 * Uncomment to be able to read multiple lines 
- 			 */
- 			
-// 			if(!s.trim().contains(".") && !s.trim().contains("***") && !s.isEmpty() ) {
-// 				while((newLine = r.readLine()) != null) {
-//  					s+=" "+newLine.trim();
-// 
-//					if(newLine.contains("."))
-//						break;
-//				}
-//			}
- 			
-			t.setString(s);
-			Assembly in = new TokenAssembly(t);
-			Assembly out = p.bestMatch(in);
-			Cobol c = new Cobol();
-			c = (Cobol) out.getTarget();
 
-			if(c != null)
-				xmlp.addElements(c); 
-			
+			/**
+			 * if read line is not a comment nor a closing element , then carry on reading following lines
+			 * Uncomment to be able to read multiple lines 
+			 */
+
+			//			
+			// 			if(!s.trim().contains(".") && !s.trim().contains("***") && !s.isEmpty() ) {
+			// 				while((newLine = r.readLine()) != null) {
+			//  					s+=" "+newLine.trim()+"\n";
+			//  					System.out.println(s);
+			//					if(newLine.contains("."))
+			//						break;
+			//				}
+			//			}
+			if(!s.trim().contains(".") && !s.trim().contains("***") && !s.isEmpty() ) {
+
+				while((newLine = r.readLine()) != null) {
+					System.out.println("new Function");
+					System.out.println("from inner loop");
+					s= newLine;
+					functions.add(s);
+					System.out.println(s);
+					if(newLine.contains(".")) {
+						if(!functions.isEmpty()) {
+							for(String function : functions) {
+								t.setString(function);
+								Assembly in = new TokenAssembly(t);
+								Assembly out = p.bestMatch(in);
+								Cobol c = new Cobol();
+								c = (Cobol) out.getTarget();
+								if(c != null)
+									xmlp.addElements(c);
+							}
+						}
+						
+						if(!functions.isEmpty())
+							functions=new ArrayList<String>();
+						
+						s= " ";
+						break;
+					}
+				}
+
+			}
+			// 			
+			if(s !=" ") {
+				t.setString(s);
+
+				Assembly in = new TokenAssembly(t);
+				Assembly out = p.bestMatch(in);
+				Cobol c = new Cobol();
+				c = (Cobol) out.getTarget();
+				if(c != null)
+					xmlp.addElements(c); 
+			}
+
+
 		}
 		xmlp.writeFile(args[1]);
 		r.close();

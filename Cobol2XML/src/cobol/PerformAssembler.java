@@ -6,6 +6,7 @@ import parse.tokens.Token;
 
 public class PerformAssembler extends Assembler {
 
+	
 	@Override
 	public void workOn(Assembly a) {
 		Cobol c = new Cobol();

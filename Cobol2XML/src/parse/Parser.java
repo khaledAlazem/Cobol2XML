@@ -121,7 +121,8 @@ public Assembly best(Vector<Assembly> v) {
  *
  */
 public Assembly bestMatch(Assembly a) {
- 	Vector<Assembly> in = new Vector<Assembly>();
+	
+  	Vector<Assembly> in = new Vector<Assembly>();
 	in.addElement(a);
 	Vector<Assembly> out = matchAndAssemble(in);
 	return best(out);

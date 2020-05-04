@@ -42,12 +42,18 @@ public class Cobol implements PubliclyCloneable {
 	protected String accept;
 	//Perform
 	protected String perform;
-	//Commnet Line
+	//Comment Line
 	protected String commentLine;
+	//Variable 
+	protected String variableName;
+	protected String pictureClause;
+	protected int identifier;
+	//create array of functions
+	protected String function;
+	
 	
 
-	
-	
+
 	/**
 	 * Return a copy of this object.
 	 *
@@ -61,6 +67,7 @@ public class Cobol implements PubliclyCloneable {
 			throw new InternalError();
 		}
 	}
+	
 	/**
 	 * Compares two objects for equality, treating nulls carefullly,
 	 * and relying on the first object's implementation of <code>
@@ -79,6 +86,7 @@ public class Cobol implements PubliclyCloneable {
 		}
 		return o1.equals(o2);
 	}
+	
 	/**
 	 * Compares this object against the specified object. The 
 	 * result is <code>true</code> if and only if the argument is 
@@ -91,6 +99,7 @@ public class Cobol implements PubliclyCloneable {
 	 *          <code>false</code> otherwise.
 	 */
 	public boolean equals(Object o) {
+		System.out.println("from equlas");
   		if (!(o instanceof Cobol)) {
 			return false;
 		}
@@ -111,9 +120,34 @@ public class Cobol implements PubliclyCloneable {
 
 	
 	
+	public String getVariableName() {
+		return variableName;
+	}
+	
+	public void setVariableName(String variableName) {
+		this.variableName = variableName;
+	}
+	
+	public String getPictureClause() {
+		return pictureClause;
+	}
+	
+	public void setPictureClause(String pictureClause) {
+		this.pictureClause = pictureClause;
+	}
+	
+	public int getIdentifier() {
+		return identifier;
+	}
+	
+	public void setIdentifier(int identifier) {
+		this.identifier = identifier;
+	}
+	
 	public String getPerform() {
 		return perform;
 	}
+	
 	
 	public void setPerform(String perform) {
 		this.perform = perform;

@@ -37,14 +37,14 @@ working-storage section.
         05  dec_value                   pic 99.
 
 procedure division.
-main-logic.
+main-logic. 
 
     display window erase
 
     display "Base:  " no
     accept current_base convert
     display "Value: " no
-    accept entry_char
+    entr accepty_char
 
 	perform display 'IN A-PARA' 
 	
