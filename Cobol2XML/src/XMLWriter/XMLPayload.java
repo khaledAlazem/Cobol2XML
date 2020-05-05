@@ -61,25 +61,34 @@
 		 this.c = c;
 
 		 /*
-		  * Add function element
+			 * Add move element
+			 */
+			String move = c.getMove();
+			if(move != null){
+				this.addMove(move);
+			}else {}
+		 
+		 /*
+		  * Add divide element
 		  */
-//		 String functionName= c.getFunction();
-//		 if(functionName != null) {
-// 			 this.addFunction(functionName);
-//		 }else {
-// 		 }
+		 String divide= c.getDivide();
+		 if(divide != null) {
+ 			 this.addDivide(divide);
+		 }else {
 
+		 }
+		 
 		 /*
 		  * Add variable element
 		  */
 		 String variableName= c.getVariableName();
 		 if(variableName != null) {
- 			 this.addVariable(variableName, c.getIdentifier() , c.getPictureClause());
+ 			 this.addVariable(variableName, c.getIdentifier() , c.getPictureClause() , c.getVariableValue());
 		 }else {
 
 		 }
-
-
+		 
+		
 		 /*
 		  * Add comment element
 		  */
@@ -121,13 +130,6 @@
 		  */
 		 String remarks = c.getRemarks();
 		 if(display != null ) {
-			String perform1 = c.getPerform();
-			if(perform1 != null) {
-				System.out.println("perform is not null");
-			}else {
-				System.out.println("perform is null");
-
-			}
 			 this.addRemarks(remarks);
 		 }else {
 		 }
@@ -210,6 +212,13 @@
 	 }
 
 
+	 
+		void addMove(String move) {
+			Element cobolName = doc.createElement("move");
+			cobolName.appendChild(doc.createTextNode(move));
+			rootElement.appendChild(cobolName);	
+		}
+	 
 	 void addFunction(String functionName) {
 		 
 		  
@@ -228,7 +237,7 @@
 		 rootElement.appendChild(cobolName);
 	 }
 	 
-	 void addVariable(String variable , int identifier , String pictureClause) {
+	 void addVariable(String variable , int identifier , String pictureClause , String variableValue) {
 		 Element cobolName = doc.createElement("Variable");
 
 		 //Insert name of variable into XML file
@@ -249,14 +258,30 @@
 
 		 Element pictureClause1 = doc.createElement(variable);
 		 Attr attrType1 = doc.createAttribute("pictureClause");
-		 attrType1.setValue(pictureClause.toString());
+		 attrType1.setValue(pictureClause);
 		 pictureClause1.setAttributeNode(attrType1);
 		 cobolName.appendChild(pictureClause1);
+		 
+		 
+		 Element value = doc.createElement(variable);
+		 Attr attrType3 = doc.createAttribute("Value");
+		 attrType3.setValue(variableValue);
+		 value.setAttributeNode(attrType3);
+		 cobolName.appendChild(value);
 		 
 		 rootElement.appendChild(cobolName);
 
 	 }
 
+	 
+	 void addDivide(String divide) {
+		 
+		 Element cobolName = doc.createElement("Divide");
+		 cobolName.appendChild(doc.createTextNode(divide));
+		 rootElement.appendChild(cobolName); 
+		 
+	 }
+	 
 
 	 void addPerform(String perform) {
 		 Element cobolName = doc.createElement("Perform");

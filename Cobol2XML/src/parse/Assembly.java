@@ -22,7 +22,7 @@ public abstract class Assembly implements Enumeration<Object>, PubliclyCloneable
 	/*
 	 * which element is next
 	 */
-		protected int index = 0;
+		public int index = 0;
 
 	/**
 	 * Return a copy of this object.

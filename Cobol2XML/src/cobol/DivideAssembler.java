@@ -10,13 +10,9 @@ public class DivideAssembler extends Assembler  {
 	public void workOn(Assembly a) {
 		Cobol c = new Cobol();
 		Token t = (Token) a.pop();
- //		t = (Token) a.pop();
-//		t = (Token) a.pop();
-//		t = (Token) a.pop();
- //		System.out.println(a.remainder(" "));
- 
-
-		
+		System.out.println("divide");
+		System.out.println(t.sval());
+		c.setDivide(a.remainder(" "));
 //		
 //		System.out.println("results"+" "+t);//result of division 
 //

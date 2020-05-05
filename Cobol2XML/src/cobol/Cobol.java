@@ -48,8 +48,13 @@ public class Cobol implements PubliclyCloneable {
 	protected String variableName;
 	protected String pictureClause;
 	protected int identifier;
+	protected String variableValue;
 	//create array of functions
 	protected String function;
+	//Divide
+	protected String divide;
+	//Move
+	protected String move;
 	
 	
 
@@ -120,6 +125,30 @@ public class Cobol implements PubliclyCloneable {
 
 	
 	
+	public String getMove() {
+		return move;
+	}
+
+	public void setMove(String move) {
+		this.move = move;
+	}
+
+	public String getDivide() {
+		return divide;
+	}
+
+	public void setDivide(String divide) {
+		this.divide = divide;
+	}
+
+	public String getVariableValue() {
+		return variableValue;
+	}
+
+	public void setVariableValue(String variableValue) {
+		this.variableValue = variableValue;
+	}
+
 	public String getVariableName() {
 		return variableName;
 	}

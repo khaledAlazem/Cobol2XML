@@ -49,59 +49,57 @@ public class CobolParser {
 	 */
 	public Parser cobol() {
 		Alternation a = new Alternation();
-		
+
 		Symbol fullstop = new Symbol('.');
 		fullstop.discard();
-		
+
 		a.add( ProgramID() );
-		
+
 		a.add( DivisionName() );
-		
+
 		a.add( SectionName() );
-		
+
 		a.add( DateWritten() );
-		
+
 		a.add(ConstantValue());
-		
+
 		a.add(Remarks());
-		
+
 		a.add(Display());
-		
+
 		a.add(Accept());
-		
+
 		a.add(Perform());
-		
+
 		a.add( Divide());
-		
+
 		a.add(Remainder());
-		
+
 		a.add(CommnetLine());
-		
+
 		a.add(Variable());
-		
+
 		a.add(Function());
- 
-		a.add(new Empty());
 		
+		a.add(Move());
+
+
+		a.add(new Empty());
+
 		return a;
 	}
-	
 
-	
+	protected Parser Move() {
+		Sequence s = new Sequence();
+		s.add(new CaselessLiteral("move"));
+		s.setAssembler(new MoveAssembler());
+		return s; 
+	}
+
 	protected Parser Function() {
-//		System.out.println("from parser function");
 		Sequence s = new Sequence ();
-		s.add(new CaselessLiteral("decimal-to-base")); 
-//		s.add(new Repetition(new Word()));
-//		s.add(new Word());
-//		s.add(new Symbol(".").discard());
-
-		
-//		s.add(new Symbol("-"));
-//		s.add(new Word());
-		
+		s.add(new CaselessLiteral("decimal-to-base"));
 		s.setAssembler(new FunctionAssembler());
-		
 		return s;
 	}
 	protected Parser Variable() {
@@ -109,10 +107,10 @@ public class CobolParser {
 		s.add(new Num());
 		s.add(new Word());
 		s.add(new CaselessLiteral("pic")); 
- 		s.setAssembler(new VariableAssembler());
+		s.setAssembler(new VariableAssembler());
 		return s;
 	}
-	
+
 	protected Parser CommnetLine() {
 		Sequence s = new Sequence ();
 		s.add(new Symbol("*"));
@@ -122,44 +120,26 @@ public class CobolParser {
 		s.add(new Symbol("-"));
 		s.add(new Symbol("-"));
 		s.add(new Word().setAssembler(new CommentLineAssembler()) );		
-		
+
 		return s;
 	}
-	
-	
+
+
 	protected Parser Remainder() {
 		Sequence s = new Sequence();
-   		s.add(new CaselessLiteral("remainder"));
-   		s.add(new Word().setAssembler(new RemainderAssembler()));
+		s.add(new CaselessLiteral("remainder"));
+		s.add(new Word().setAssembler(new RemainderAssembler()));
 		s.add(new Repetition(new Word()));
 		return s ; 
 	}
 
-	
+
 	protected Parser Divide() {
 		Sequence s = new Sequence();
-		Sequence e = new Sequence();
-   		s.add(new CaselessLiteral("divide"));
-//   		s.add(new CaselessLiteral("into"));
- 
-		s.add(new Repetition(new Word()));
-   		s.add(new Word().setAssembler(new DivideAssembler()));
-//   		s.add(new Word());
-// 		s.add(new Word());
-
-
-//		s.add(new Word()); //represents  word "giving"
-//		s.add(new Word()); //represents item in which results of division will be stored
-//		s.add(new Word()); //represents item in which results of division will be stored
-//		s.add(new Symbol((char)10)); //move to new line
-//		s.add(new CaselessLiteral("remainder")); //represents  word "remainder"
-//		s.add(new Symbol(' ').discard()); //represents item in which results of division will be stored
-//		s.add(new Word()); //represents  word "giving"
-		
-//  		a.add(s);
-
- 		return s;
+		s.add(new CaselessLiteral("divide").setAssembler(new DivideAssembler()));
+		return s;
 	}
+	
 	/*
 	 * Return a parser that will recognise the grammar:
 	 * 
@@ -168,14 +148,11 @@ public class CobolParser {
 	 */
 	protected Parser Perform() {
 		Sequence s = new Sequence();
-//		s.add(new Repetition(new Word()));
 		s.add(new CaselessLiteral("perform"));
-//		s.add(new Repetition(new Word()));
 		s.setAssembler(new PerformAssembler());
-//		s.add(new Word().setAssembler(new PerformAssembler()));
 		return s; 
 	}
-	
+
 	/*
 	 * Return a parser that will recognise the grammar:
 	 * 
@@ -188,7 +165,7 @@ public class CobolParser {
 		s.add(new Word().setAssembler(new AcceptAssembler()));
 		return s; 
 	}
-	
+
 	/*
 	 * Return a parser that will recognise the grammar:
 	 * 
@@ -202,7 +179,7 @@ public class CobolParser {
 		s.setAssembler(new DisplayAssembler());
 		return s; 
 	}
-	
+
 	/**
 	 * Come back to this later
 	 * @return
@@ -212,14 +189,15 @@ public class CobolParser {
 		s.add(new CaselessLiteral("remarks"));
 		s.add(new Repetition(new Word().setAssembler(new RemarksAssembler())));
 		s.add(new Symbol('.').discard());
-//		s.setAssembler(new RemarksAssembler());
+		//		s.setAssembler(new RemarksAssembler());
 		return s; 
 	}
-	
-	
-	
-	/** Return a parser that will recognizethe grammar:* *   
+
+
+
+	/** Return a parser that will recognize the grammar:* *   
 	 *  <line number> <contstant name> "value" <constant value>.
+	 * 
 	 *  **/
 	protected Parser ConstantValue() {
 		Sequence s = new Sequence();
@@ -230,9 +208,9 @@ public class CobolParser {
 		s.setAssembler(new ConstantValueAssembler());
 		return s;
 	}
-	
-	
-	
+
+
+
 	/*
 	 * Return a parser that will recognize the grammar:
 	 * 
@@ -262,7 +240,7 @@ public class CobolParser {
 		s.add(new Symbol('.').discard());
 		return s;
 	}
-	
+
 	/*
 	 * Return a parser that will recognize the grammar:
 	 * 
@@ -277,7 +255,7 @@ public class CobolParser {
 
 		return s;
 	}
-	
+
 	/*
 	 * Return a parser that will recognise the grammar:
 	 * 

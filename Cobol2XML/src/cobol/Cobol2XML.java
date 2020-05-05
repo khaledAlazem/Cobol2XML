@@ -48,7 +48,7 @@ public class Cobol2XML {
 	public static void main(String[] args) throws Exception {
 		System.out.println("Cobol2XML V0.1.0");
 		XMLPayload xmlp = new XMLPayload();
-		ArrayList<String> functions= new ArrayList<String>();
+		ArrayList<String> functions= new ArrayList<String>(); //is used to group elements that belong to one function only 
 		/* The first command line paprameter is used to get the cobol source file namee
 		 * In case you are not sure if you are pointing toward the right file, print out the filename
 		 * like this...
@@ -66,6 +66,7 @@ public class Cobol2XML {
 		Tokenizer t = CobolParser.tokenizer();
 		Parser p = CobolParser.start();
 		String newLine="";
+		
 		// Look through source code file line by line
 		while (true) {
 			// throws IOException
@@ -79,20 +80,20 @@ public class Cobol2XML {
 			 * Uncomment to be able to read multiple lines 
 			 */
 
-			//			
-			// 			if(!s.trim().contains(".") && !s.trim().contains("***") && !s.isEmpty() ) {
-			// 				while((newLine = r.readLine()) != null) {
-			//  					s+=" "+newLine.trim()+"\n";
-			//  					System.out.println(s);
+			//			if(!s.trim().contains(".") && !s.trim().contains("***") && !s.isEmpty() ) {
+			//				while((newLine = r.readLine()) != null) {
+			//					s+=" "+newLine.trim()+"\n";
 			//					if(newLine.contains("."))
 			//						break;
 			//				}
 			//			}
+
+
+
+
 //			if(!s.trim().contains(".") && !s.trim().contains("***") && !s.isEmpty() ) {
 //
 //				while((newLine = r.readLine()) != null) {
-//					System.out.println("new Function");
-//					System.out.println("from inner loop");
 //					s= newLine;
 //					functions.add(s);
 //					System.out.println(s);
@@ -108,20 +109,20 @@ public class Cobol2XML {
 //									xmlp.addElements(c);
 //							}
 //						}
-//						
+//
 //						if(!functions.isEmpty())
 //							functions=new ArrayList<String>();
-//						
+//
 //						s= " ";
 //						break;
 //					}
 //				}
 //
 //			}
-			// 			
+
+
 			if(s !=" ") {
 				t.setString(s);
-
 				Assembly in = new TokenAssembly(t);
 				Assembly out = p.bestMatch(in);
 				Cobol c = new Cobol();
@@ -129,8 +130,6 @@ public class Cobol2XML {
 				if(c != null)
 					xmlp.addElements(c); 
 			}
-
-
 		}
 		xmlp.writeFile(args[1]);
 		r.close();

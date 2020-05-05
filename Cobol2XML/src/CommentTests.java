@@ -9,24 +9,24 @@ import parse.Parser;
 import parse.tokens.TokenAssembly;
 import parse.tokens.Tokenizer;
 
-public class PerformTests {
+public class CommentTests {
 
 	@Test
-	public void testPerform() {
+	public void testComment() {
 		Tokenizer t = CobolParser.tokenizer();
 		Parser p = CobolParser.start();
-		
-		t.setString("perform decimal-to-base thru decimal-to-base-ex");
-		
+	
+		t.setString("move entry_number  to w_number");
 		Assembly in = new TokenAssembly(t);
 		Assembly out = p.bestMatch(in);
 		
-		
 		Cobol c = new Cobol();
-		c= (Cobol) out.getTarget();
-		System.out.println(c.getPerform());
- //		System.out.println(c.getPerform());
-		assertEquals(c.getPerform(), "decimal-to-base thru decimal-to-base-ex");
-	}
+		c = (Cobol) out.getTarget();
+		//Another defect , probably it is the because whitespace between strings in the cobol.cbl are not even
+		//I had to remove an extra whitespace between "to" and "w_number"
+		assertEquals(c.getMove(),"entry_number to w_number" );
+
+
+ 	}
 
 }

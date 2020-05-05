@@ -9,24 +9,20 @@ import parse.Parser;
 import parse.tokens.TokenAssembly;
 import parse.tokens.Tokenizer;
 
-public class PerformTests {
+public class DivideTests {
 
 	@Test
-	public void testPerform() {
+	public void test() {
 		Tokenizer t = CobolParser.tokenizer();
 		Parser p = CobolParser.start();
-		
-		t.setString("perform decimal-to-base thru decimal-to-base-ex");
-		
+	
+		t.setString("divide current_base into w_number giving w_number");
 		Assembly in = new TokenAssembly(t);
 		Assembly out = p.bestMatch(in);
 		
-		
 		Cobol c = new Cobol();
-		c= (Cobol) out.getTarget();
-		System.out.println(c.getPerform());
- //		System.out.println(c.getPerform());
-		assertEquals(c.getPerform(), "decimal-to-base thru decimal-to-base-ex");
-	}
+		c = (Cobol) out.getTarget();
+		assertEquals(c.getDivide(),"current_base into w_number giving w_number" );
+ 	}
 
 }

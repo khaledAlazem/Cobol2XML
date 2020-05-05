@@ -13,7 +13,7 @@ data division.
 working-storage section.
 
 77  ind                                 pic 99 comp-x.
-77  rest_divide                         pic 99.
+77  rest_divide                         pic PPP999.
 
 01  w_number                            pic 9(16).
 01  entry_number                        pic 9(16).
